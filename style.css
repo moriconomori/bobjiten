@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  padding: 2%;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 8em;
+  margin: 0 auto;
+  border: 1px solid black;
+}
+
+.open {
+  display: block;
+  margin: 1em auto;
+  width: 50%;
+  height: 4em;
+}
+
+h1, .version {
+  text-align: center;
+}
