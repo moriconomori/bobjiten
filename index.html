@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <title>Bobjiten</title>
+    <title>カタヌキ</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
   </head>
   <body>
     <div id="app">
-      <h1>Bobjiten</h1>
+      <h1>カタヌキ</h1>
 
-      <div class="card">
-        <span>CARD</span>
+      <div class="card" v-bind:style="{backgroundColor: cardColor}">
+        <span>{{ word }}</span>
       </div>
-      <button class="open">めくる</button>
+      <button class="open" @click="pickup">お題</button>
+      <div class="correct-incorrect">
+        <button class="correct" @click="correct">正解！</button>
+        <button class="incorrect" @click="incorrect">不正解！</button>
+      </div>
+      <audio id="odai" src="./sound/odai.mp3"></audio>
+      <audio id="correct" src="./sound/correct.mp3"></audio>
+      <audio id="incorrect" src="./sound/incorrect.mp3"></audio>
 
-      <p class="version">Ver. 0.1.0</p>
+      <p class="version">Ver. 1.0.0</p>
+      <p style="text-align: center">Designed by ちきん</p>
     </div>
 
     <script src="app.js"></script>

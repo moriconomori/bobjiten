@@ -1,16 +1,23 @@
 body {
   margin: 0;
   padding: 2%;
+  background: rgb(203, 230, 243);
+  font-family: sans-serif;
 }
 
 .card {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60%;
+  width: 80%;
   height: 8em;
   margin: 0 auto;
   border: 1px solid black;
+  border-radius: 10px;
+}
+
+.card > span {
+  font-size: 140%;
 }
 
 .open {
@@ -18,6 +25,23 @@ body {
   margin: 1em auto;
   width: 50%;
   height: 4em;
+  font-size: 95%;
+  border-radius: 20px;
+}
+
+.correct-incorrect {
+  display: flex;
+  justify-content: space-around;
+  
+}
+
+.correct, .incorrect {
+  margin: 0;
+  padding: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  font-size: 100%;
 }
 
 h1, .version {
