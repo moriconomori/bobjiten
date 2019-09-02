@@ -2,17 +2,17 @@ var app = new Vue({
   el: "#app",
   data: {
     word: "お題 CARD",
-    words: [ "ポーカー", "シミュレーションゲーム", "カジノ", "ロールプレイングゲーム", "マインスイーパー", "ゲームオーバー", "ケバブ", "フランクフルト", "ミント", "チーズフォンデュ", "ローストビーフ", "パイナップル", "ポスター", "ルーズリーフ", "プラスチック", "コースター", "ストロー", "ティーバッグ", "バスタオル", "コンディショナー", "トイレットペーパー", "スリッパ", "サウナ", "ハンガー", "DVDプレイヤー", "スタンガン", "トースター", "オーブン", "キーボード", "デジタルカメラ" ],
+    words: [],
     cardColor: ""
   },
   methods: {
     pickup: function (event) {
-      var index = Math.floor(Math.random()* this.words.length);
+      var index = Math.floor(Math.random() * this.words.length);
       this.word = this.words[index];
-      var whois = Math.floor(Math.random()* 100) + 1;
+      var whois = Math.floor(Math.random() * 100) + 1;
       if (whois <= 10) {
         this.cardColor = "rgb(255, 234, 42)";
-      } else if (whois > 10 && whois <=20) {
+      } else if (whois > 10 && whois <= 20) {
         this.cardColor = "rgb(129, 214, 116)";
       } else {
         this.cardColor = "";
@@ -27,6 +27,17 @@ var app = new Vue({
     incorrect: function (event) {
       var audio = document.getElementById('incorrect');
       audio.play();
-    }
+    },
+  },
+  created: async function () {
+    var data = [];
+    await axios.get('./data/bob_dictionary_1.txt')
+      .then(function (res) {
+        data = res.data.split(/\r\n|\r|\n/).filter(v => v);
+      })
+      .catch(function (err) {
+        console.log('Error: bob_dictionary_1.txt');
+      });
+    this.words = data;
   }
 });
