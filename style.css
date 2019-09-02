@@ -5,6 +5,10 @@ body {
   font-family: sans-serif;
 }
 
+button {
+  outline: none;
+}
+
 .card {
   display: flex;
   justify-content: center;
@@ -32,7 +36,7 @@ body {
 .correct-incorrect {
   display: flex;
   justify-content: space-around;
-  
+
 }
 
 .correct, .incorrect {
@@ -45,5 +49,9 @@ body {
 }
 
 h1, .version {
+  text-align: center;
+}
+
+footer {
   text-align: center;
 }
