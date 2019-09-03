@@ -19,14 +19,29 @@ var app = new Vue({
       }
       var audio = document.getElementById('odai');
       audio.play();
+      gtag('event', 'click', {
+        'event_category': 'button',
+        'event_label': 'お題',
+        'value': 1
+      });
     },
     correct: function (event) {
       var audio = document.getElementById('correct');
       audio.play();
+      gtag('event', 'click', {
+        'event_category': 'button',
+        'event_label': '正解',
+        'value': 1
+      });
     },
     incorrect: function (event) {
       var audio = document.getElementById('incorrect');
       audio.play();
+      gtag('event', 'click', {
+        'event_category': 'button',
+        'event_label': '不正解',
+        'value': 1
+      });
     },
   },
   created: async function () {
