@@ -1,35 +1,44 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <title>カタヌキ</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  </head>
-  <body>
-    <div id="app">
-      <h1>カタヌキ</h1>
 
-      <div class="card" v-bind:style="{backgroundColor: cardColor}">
-        <span>{{ word }}</span>
-      </div>
-      <button class="open" @click="pickup">お題</button>
-      <div class="correct-incorrect">
-        <button class="correct" @click="correct">正解！</button>
-        <button class="incorrect" @click="incorrect">不正解！</button>
-      </div>
-      <audio id="odai" src="./sound/odai.mp3"></audio>
-      <audio id="correct" src="./sound/correct.mp3"></audio>
-      <audio id="incorrect" src="./sound/incorrect.mp3"></audio>
+<head>
+  <title>カタヌキ</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <script src="//cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+  <script src="//unpkg.com/axios/dist/axios.min.js"></script>
 
-      <p class="version">Ver. 1.0.0</p>
-      <footer class="footer">
-        <p>&copy; 2019 Morico</p>
-        <p>Designed by ちきん</p>
-      </footer>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script src="gtag.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h1>カタヌキ</h1>
+
+    <div class="card" v-bind:style="{backgroundColor: cardColor}">
+      <span>{{ word }}</span>
     </div>
 
-    <script src="app.js"></script>
-  </body>
+    <button class="open" @click="pickup">お題</button>
+
+    <div class="correct-incorrect">
+      <button class="correct" @click="correct">正解！</button>
+      <button class="incorrect" @click="incorrect">不正解！</button>
+    </div>
+
+    <audio id="odai" src="./sound/odai.mp3"></audio>
+    <audio id="correct" src="./sound/correct.mp3"></audio>
+    <audio id="incorrect" src="./sound/incorrect.mp3"></audio>
+
+    <footer class="footer">
+      <p>Ver. 1.0.0</p>
+      <p>&copy; 2019 Morico</p>
+      <p>Designed by ちきん</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
 </html>
