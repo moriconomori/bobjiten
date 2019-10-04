@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  padding: 2%;
+  padding: 0 2%;
   background: rgb(203, 230, 243);
   font-family: sans-serif;
 }
@@ -10,18 +10,32 @@ button {
 }
 
 .card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
   width: 80%;
-  height: 8em;
-  margin: 0 auto;
+  height: 36vw;
+  line-height: 36vw;
+  text-align: center;
+  margin: 1em auto;
   border: 1px solid black;
-  border-radius: 10px;
+  border-radius: 4vw;
 }
 
-.card > span {
-  font-size: 140%;
+.word {
+  margin: 0;
+  padding: 0;
+}
+
+.word span {
+  font-size: 6vw;
+}
+
+.type {
+  margin: 0;
+  padding: 0;
+  line-height: 100%;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
 }
 
 .open {
@@ -34,12 +48,13 @@ button {
 }
 
 .correct-incorrect {
+  margin: 1em auto;
   display: flex;
   justify-content: space-around;
-
 }
 
-.correct, .incorrect {
+.correct,
+.incorrect {
   margin: 0;
   padding: 0;
   width: 80px;
@@ -48,10 +63,15 @@ button {
   font-size: 100%;
 }
 
-h1, .version {
+h1 {
   text-align: center;
 }
 
-footer {
+.footer {
+  margin: 1em auto;
   text-align: center;
+}
+
+.footer p {
+  margin: 0;
 }

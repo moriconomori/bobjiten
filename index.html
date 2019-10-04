@@ -6,17 +6,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="style.css">
   <script src="//cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-  <script src="//unpkg.com/axios/dist/axios.min.js"></script>
-
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146830279-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-146830279-1');
-  </script>
+  <script src="//cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js"></script>
+  <script src="gtag.js"></script>
 </head>
 
 <body>
@@ -24,7 +15,12 @@
     <h1>カタヌキ</h1>
 
     <div class="card" v-bind:style="{backgroundColor: cardColor}">
-      <span>{{ word }}</span>
+      <p class="word">
+        <span>{{ word }}</span>
+      </p>
+      <p class="type">
+        <span>{{ type }}</span>
+      </p>
     </div>
 
     <button class="open" @click="pickup">お題</button>
@@ -39,7 +35,7 @@
     <audio id="incorrect" src="./sound/incorrect.mp3"></audio>
 
     <footer class="footer">
-      <p>Ver. 1.0.0</p>
+      <p>Ver. 1.1.0</p>
       <p>&copy; 2019 Morico</p>
       <p>Designed by ちきん</p>
     </footer>
