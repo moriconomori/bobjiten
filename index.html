@@ -14,13 +14,13 @@
   <div id="app">
     <h1>カタヌキ</h1>
 
-    <div class="card" v-bind:style="{backgroundColor: cardColor}">
+    <div class="card" v-bind:class="type">
       <p class="word">
         <span v-if="!isEmpty">{{ word }}</span>
         <span v-else>カードがなくなった！</span>
       </p>
       <p class="type">
-        <span>{{ type }}</span>
+        <span>{{ typeName }}</span>
       </p>
     </div>
 
@@ -38,9 +38,9 @@
       <button class="incorrect" @click="incorrect">不正解！</button>
     </div>
 
-    <audio id="odai" src="./sound/odai.mp3"></audio>
-    <audio id="correct" src="./sound/correct.mp3"></audio>
-    <audio id="incorrect" src="./sound/incorrect.mp3"></audio>
+    <audio id="odai" src="sound/odai.mp3"></audio>
+    <audio id="correct" src="sound/correct.mp3"></audio>
+    <audio id="incorrect" src="sound/incorrect.mp3"></audio>
 
     <footer class="footer">
       <p>Ver. 1.2.0</p>

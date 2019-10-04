@@ -3,8 +3,8 @@ var app = new Vue({
   data: {
     word: "お題 CARD",
     words: [],
-    cardColor: '',
     type: '',
+    typeName: '',
     cardTotalNum: 0,
     cardNum: 0,
     isEmpty: false,
@@ -24,14 +24,15 @@ var app = new Vue({
 
       var whois = Math.floor(Math.random() * 100) + 1;
       if (whois <= 10) {
-        this.cardColor = 'rgb(255, 234, 42)';
-        this.type = 'カタコト';
+        this.type = 'katakoto';
+        this.typeName = 'カタコト';
       } else if (whois > 10 && whois <= 20) {
-        this.cardColor = 'rgb(129, 214, 116)';
-        this.type = 'ジェスチャー';
+        this.type = 'gesture';
+        this.typeName = 'ジェスチャー';
       } else {
         this.cardColor = '';
         this.type = '';
+        this.typeName = '';
       }
 
       var audio = document.getElementById('odai');
