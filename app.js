@@ -8,6 +8,7 @@ var app = new Vue({
     cardTotalNum: 0,
     cardNum: 0,
     isEmpty: false,
+    sounds: {},
   },
   methods: {
     pickup: function(event) {
@@ -17,6 +18,8 @@ var app = new Vue({
         this.isEmpty = true;
         return;
       }
+
+      this.playSound('odai');
 
       var index = Math.floor(Math.random() * this.words.length);
       this.word = this.words.splice(index, 1)[0];
@@ -35,18 +38,14 @@ var app = new Vue({
         this.typeName = '';
       }
 
-      var audio = document.getElementById('odai');
-      audio.play();
       gtag('event', 'click', { 'event_category': 'button', 'event_label': 'お題' })
     },
     correct: function(event) {
-      var audio = document.getElementById('correct');
-      audio.play();
+      this.playSound('correct');
       gtag('event', 'click', { 'event_category': 'button', 'event_label': '正解' });
     },
     incorrect: function(event) {
-      var audio = document.getElementById('incorrect');
-      audio.play();
+      this.playSound('incorrect');
       gtag('event', 'click', { 'event_category': 'button', 'event_label': '不正解' });
     },
     getDictionary: async function(filename) {
@@ -62,7 +61,13 @@ var app = new Vue({
         });
 
       return data;
-    }
+    },
+    playSound: function(name) {
+      const audio = this.sounds[name];
+      audio.pause();
+      audio.currentTime = 0;
+      audio.play();
+    },
   },
   created: async function() {
     let data = [];
@@ -78,5 +83,9 @@ var app = new Vue({
 
     this.cardTotalNum = this.words.length;
     this.cardNum = this.cardTotalNum;
+
+    this.sounds['odai'] = new Audio('sound/odai.mp3');
+    this.sounds['correct'] = new Audio('sound/correct.mp3');
+    this.sounds['incorrect'] = new Audio('sound/incorrect.mp3');
   }
 });
