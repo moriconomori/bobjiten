@@ -3,10 +3,18 @@ body {
   padding: 0 2%;
   background: rgb(203, 230, 243);
   font-family: sans-serif;
+  touch-action: manipulation;
+}
+
+h1 {
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 1rem auto;
 }
 
 button {
   outline: none;
+  -webkit-user-select: none;
 }
 
 .card {
@@ -20,13 +28,15 @@ button {
   border-radius: 4vw;
 }
 
+.card p {
+  margin: 0;
+  padding: 0;
+  font-size: 6vw;
+}
+
 .word {
   margin: 0;
   padding: 0;
-}
-
-.word span {
-  font-size: 6vw;
 }
 
 .type {
@@ -34,17 +44,30 @@ button {
   padding: 0;
   line-height: 100%;
   position: absolute;
-  top: 0.5em;
-  right: 0.5em;
+  top: 0.5vw;
+  right: 2.5vw;
+  font-size: 1vw;
+}
+
+.type span {
+  font-size: 4vw;
 }
 
 .open {
   display: block;
   margin: 1em auto;
+  padding: 8px 0;
   width: 50%;
-  height: 4em;
-  font-size: 95%;
-  border-radius: 20px;
+  border-radius: 3vw;
+}
+
+.open-caption {
+  font-size: 5vw;
+}
+
+.open p {
+  margin: 0;
+  padding: 0;
 }
 
 .correct-incorrect {
@@ -63,12 +86,8 @@ button {
   font-size: 100%;
 }
 
-h1 {
-  text-align: center;
-}
-
 .footer {
-  margin: 1em auto;
+  margin: 1rem auto;
   text-align: center;
 }
 

@@ -16,14 +16,22 @@
 
     <div class="card" v-bind:style="{backgroundColor: cardColor}">
       <p class="word">
-        <span>{{ word }}</span>
+        <span v-if="!isEmpty">{{ word }}</span>
+        <span v-else>カードがなくなった！</span>
       </p>
       <p class="type">
         <span>{{ type }}</span>
       </p>
     </div>
 
-    <button class="open" @click="pickup">お題</button>
+    <button class="open" @click="pickup">
+      <p class="open-caption">
+        <span>次のお題</span>
+      </p>
+      <p class="open-card-num" v-cloak>
+        <span>残り {{ cardNum }} / {{ cardTotalNum }}</span>
+      </p>
+    </button>
 
     <div class="correct-incorrect">
       <button class="correct" @click="correct">正解！</button>
@@ -35,7 +43,7 @@
     <audio id="incorrect" src="./sound/incorrect.mp3"></audio>
 
     <footer class="footer">
-      <p>Ver. 1.1.0</p>
+      <p>Ver. 1.2.0</p>
       <p>&copy; 2019 Morico</p>
       <p>Designed by ちきん</p>
     </footer>

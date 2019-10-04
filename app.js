@@ -5,21 +5,32 @@ var app = new Vue({
     words: [],
     cardColor: '',
     type: '',
+    cardTotalNum: 0,
+    cardNum: 0,
+    isEmpty: false,
   },
   methods: {
     pickup: function(event) {
+      if (this.cardNum < 1) {
+        this.cardColor = '';
+        this.type = '';
+        this.isEmpty = true;
+        return;
+      }
+
       var index = Math.floor(Math.random() * this.words.length);
-      this.word = this.words[index];
+      this.word = this.words.splice(index, 1)[0];
+      this.cardNum = this.words.length;
 
       var whois = Math.floor(Math.random() * 100) + 1;
       if (whois <= 10) {
-        this.cardColor = "rgb(255, 234, 42)";
+        this.cardColor = 'rgb(255, 234, 42)';
         this.type = 'カタコト';
       } else if (whois > 10 && whois <= 20) {
-        this.cardColor = "rgb(129, 214, 116)";
+        this.cardColor = 'rgb(129, 214, 116)';
         this.type = 'ジェスチャー';
       } else {
-        this.cardColor = "";
+        this.cardColor = '';
         this.type = '';
       }
 
@@ -37,34 +48,34 @@ var app = new Vue({
       audio.play();
       gtag('event', 'click', { 'event_category': 'button', 'event_label': '不正解' });
     },
+    getDictionary: async function(filename) {
+      const directory = 'data/';
+      let data = [];
+
+      await axios.get(directory + filename)
+        .then(function(res) {
+          data = res.data.split(/\r\n|\r|\n/).filter(v => v);
+        })
+        .catch(function(err) {
+          console.log('Error: ' + directory + filename);
+        });
+
+      return data;
+    }
   },
   created: async function() {
-    var data = [];
-    await axios.get('./data/bob_dictionary_1.txt')
-      .then(function(res) {
-        data = res.data.split(/\r\n|\r|\n/).filter(v => v);
-      })
-      .catch(function(err) {
-        console.log('Error: bob_dictionary_1.txt');
-      });
+    let data = [];
+
+    data = await this.getDictionary('bob_dictionary_1.txt');
     this.words = this.words.concat(data);
 
-    await axios.get('./data/bob_dictionary_2.txt')
-      .then(function(res) {
-        data = res.data.split(/\r\n|\r|\n/).filter(v => v);
-      })
-      .catch(function(err) {
-        console.log('Error: bob_dictionary_2.txt');
-      });
+    data = await this.getDictionary('bob_dictionary_2.txt');
     this.words = this.words.concat(data);
 
-    await axios.get('./data/my_dictionary.txt')
-      .then(function(res) {
-        data = res.data.split(/\r\n|\r|\n/).filter(v => v);
-      })
-      .catch(function(err) {
-        console.log('Error: my_dictionary.txt');
-      });
+    data = await this.getDictionary('my_dictionary.txt');
     this.words = this.words.concat(data);
+
+    this.cardTotalNum = this.words.length;
+    this.cardNum = this.cardTotalNum;
   }
 });
