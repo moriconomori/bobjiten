@@ -11,6 +11,10 @@ var app = new Vue({
     sounds: {},
     mask: false,
     show: true,
+    scores: [],
+    playerName: '',
+    showPlayerModal: false,
+    showAddScoreModal: false,
   },
   methods: {
     pickup: function(event) {
@@ -56,6 +60,7 @@ var app = new Vue({
     },
     correct: function(event) {
       this.playSound('correct');
+      this.showAddScoreModal = true;
       gtag('event', 'click', { 'event_category': 'button', 'event_label': '正解' });
     },
     incorrect: function(event) {
@@ -81,6 +86,22 @@ var app = new Vue({
       audio.pause();
       audio.currentTime = 0;
       audio.play();
+    },
+    addPlayer: function() {
+      let name = this.playerName;
+      let score = {
+        'name': name,
+        'point': 0,
+      }
+      this.scores.push(score);
+      this.playerName = '';
+    },
+    addScore: function(name) {
+      const index = this.scores.findIndex((v) => {
+        return (v.name === name);
+      });
+      this.scores[index].point++;
+      this.showAddScoreModal = false;
     },
   },
   created: async function() {
