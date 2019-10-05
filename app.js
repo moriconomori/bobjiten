@@ -60,7 +60,9 @@ var app = new Vue({
     },
     correct: function(event) {
       this.playSound('correct');
-      this.showAddScoreModal = true;
+      if (this.scores.length > 0) {
+        this.showAddScoreModal = true;
+      }
       gtag('event', 'click', { 'event_category': 'button', 'event_label': '正解' });
     },
     incorrect: function(event) {
@@ -93,8 +95,10 @@ var app = new Vue({
         'name': name,
         'point': 0,
       }
-      this.scores.push(score);
-      this.playerName = '';
+      if (name != '') {
+        this.scores.push(score);
+        this.playerName = '';
+      }
     },
     addScore: function(name) {
       const index = this.scores.findIndex((v) => {

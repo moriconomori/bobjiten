@@ -50,20 +50,25 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="player-modal">
-            <div class="player-modal-header">
-              <p>
+            <div class="modal-header">
+              <div>
                 <span>参加者</span>
-                <button @click="showPlayerModal = false">閉じる</button>
-              </p>
+              </div>
+              <button @click="showPlayerModal = false">閉じる</button>
             </div>
             <div class="player-modal-body">
-              <ul class="player-list">
+              <div v-if="scores.length == 0">
+                誰もいません
+              </div>
+              <ul class="player-list" v-else>
                 <li v-for="score in scores">
-                  <span>{{ score.name }} - {{ score.point }}</span>
+                  <span>{{ score.name }}: {{ score.point }}</span>
                 </li>
               </ul>
-              <input type="text" v-model="playerName" placeholder="名前を入力">
-              <button @click="addPlayer">追加</button>
+              <div class="modal-form">
+                <input type="text" v-model="playerName" placeholder="名前を入力">
+                <button @click="addPlayer">追加</button>
+              </div>
             </div>
           </div>
         </div>
@@ -74,11 +79,11 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="add-score-modal">
-            <div class="add-score-modal-header">
-              <p>
+            <div class="modal-header">
+              <div>
                 <span>正解した人を選択</span>
-                <button @click="showAddScoreModal = false">閉じる</button>
-              </p>
+              </div>
+              <button @click="showAddScoreModal = false">閉じる</button>
             </div>
             <div class="add-score-modal-body">
               <ul class="player-list">
