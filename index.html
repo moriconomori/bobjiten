@@ -14,32 +14,38 @@
   <div id="app">
     <h1>カタヌキ</h1>
 
-    <div class="card" v-bind:class="type">
-      <p class="word">
-        <span v-if="!isEmpty">{{ word }}</span>
-        <span v-else>カードがなくなった！</span>
-      </p>
-      <p class="type">
-        <span>{{ typeName }}</span>
-      </p>
+    <div class="card-wrapper">
+      <transition name="card-slide" @after-leave="pickup">
+        <div class="card" v-bind:class="type" v-show="show" :key="word">
+          <div v-bind:class="{mask:mask}">
+            <p class="word">
+              <span v-if="isEmpty">GAME OVER</span>
+              <span v-else>{{ word }}</span>
+            </p>
+            <p class="type">
+              <span>{{ typeName }}</span>
+            </p>
+          </div>
+        </div>
+      </transition>
     </div>
 
-    <button class="open" @click="pickup">
+    <button class="open" @click="cardLeave" v-bind:disabled="isEmpty ? true : false">
       <p class="open-caption">
         <span>次のお題</span>
       </p>
-      <p class="open-card-num" v-cloak>
+      <p class="open-card-num">
         <span>残り {{ cardNum }} / {{ cardTotalNum }}</span>
       </p>
     </button>
 
-    <div class="correct-incorrect">
-      <button class="correct" @click="correct">正解！</button>
-      <button class="incorrect" @click="incorrect">不正解！</button>
+    <div class="answer">
+      <button class="correct" @click="correct" v-bind:disabled="isEmpty ? true : false">正解！</button>
+      <button class="incorrect" @click="incorrect" v-bind:disabled="isEmpty ? true : false">不正解！</button>
     </div>
 
     <footer class="footer">
-      <p>Ver. 1.2.0</p>
+      <p>Ver. 1.3.0</p>
       <p>&copy; 2019 Morico</p>
       <p>Designed by ちきん</p>
     </footer>

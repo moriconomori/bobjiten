@@ -9,7 +9,7 @@ body {
 h1 {
   font-size: 1.5rem;
   text-align: center;
-  margin: 1rem auto;
+  margin: 1.5rem auto;
 }
 
 button {
@@ -17,10 +17,14 @@ button {
   -webkit-user-select: none;
 }
 
-.card {
-  position: relative;
+.card-wrapper {
+  margin: 1.5rem auto;
   width: 80%;
   height: 36vw;
+}
+
+.card {
+  position: relative;
   line-height: 36vw;
   text-align: center;
   margin: 1em auto;
@@ -39,17 +43,17 @@ button {
 }
 
 .gesture {
+  background: url("img/gesture.png") no-repeat center;
   background-color: rgb(129, 214, 116);
+  background-size: contain;
 }
 
-.word {
-  margin: 0;
-  padding: 0;
+.mask {
+  border-radius: 4vw;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .type {
-  margin: 0;
-  padding: 0;
   line-height: 100%;
   position: absolute;
   top: 0.5vw;
@@ -63,7 +67,7 @@ button {
 
 .open {
   display: block;
-  margin: 1em auto;
+  margin: 1.5rem auto;
   padding: 8px 0;
   width: 50%;
   border-radius: 3vw;
@@ -78,8 +82,8 @@ button {
   padding: 0;
 }
 
-.correct-incorrect {
-  margin: 1em auto;
+.answer {
+  margin: 1.5rem auto;
   display: flex;
   justify-content: space-around;
 }
@@ -95,10 +99,26 @@ button {
 }
 
 .footer {
-  margin: 1rem auto;
+  margin: 1.5rem auto;
   text-align: center;
 }
 
 .footer p {
   margin: 0;
+}
+
+
+/* Transition */
+
+.card-slide-leave-to {
+  transform: translateX(-100vw);
+}
+
+.card-slide-enter {
+  transform: translateX(100vw);
+}
+
+.card-slide-enter-active,
+.card-slide-leave-active {
+  transition: all 0.15s ease;
 }

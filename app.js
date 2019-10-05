@@ -9,6 +9,8 @@ var app = new Vue({
     cardNum: 0,
     isEmpty: false,
     sounds: {},
+    mask: false,
+    show: true,
   },
   methods: {
     pickup: function(event) {
@@ -16,10 +18,7 @@ var app = new Vue({
         this.cardColor = '';
         this.type = '';
         this.isEmpty = true;
-        return;
       }
-
-      this.playSound('odai');
 
       var index = Math.floor(Math.random() * this.words.length);
       this.word = this.words.splice(index, 1)[0];
@@ -38,7 +37,22 @@ var app = new Vue({
         this.typeName = '';
       }
 
+      if (this.type) {
+        this.mask = true;
+      } else {
+        this.mask = false;
+      }
+
+      this.cardEnter();
+
       gtag('event', 'click', { 'event_category': 'button', 'event_label': 'お題' })
+    },
+    cardEnter: function() {
+      this.playSound('odai');
+      this.show = true;
+    },
+    cardLeave: function() {
+      this.show = false;
     },
     correct: function(event) {
       this.playSound('correct');
