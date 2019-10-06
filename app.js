@@ -3,6 +3,7 @@ var app = new Vue({
   data: {
     word: "お題 CARD",
     words: [],
+    wordsList: [],
     type: '',
     typeName: '',
     cardTotalNum: 0,
@@ -107,6 +108,34 @@ var app = new Vue({
       this.scores[index].point++;
       this.showAddScoreModal = false;
     },
+    getWordsList: async function(file) {
+      const directory = 'data/';
+      let data = [];
+      await axios.get(directory + file)
+        .then(function(res) {
+          data = res.data.split(/\r\n|\r|\n/).filter(v => v);
+        })
+        .catch(function(err) {
+          console.log('Error: ' + directory + file);
+        });
+      return data;
+    },
+    addNewWord: async function() {
+      this.wordsList.push('');
+      const lastIndex = this.wordsList.length - 1;
+      let refs = this.$refs;
+      let focusTarget;
+
+      const targetRefs = 'word' + lastIndex;
+      // console.log('targetRefs: ' + targetRefs);
+
+      await Vue.nextTick()
+        .then(function() {
+          focusTarget = refs[targetRefs];
+        })
+
+      focusTarget[0].focus();
+    },
   },
   created: async function() {
     let data = [];
@@ -122,6 +151,8 @@ var app = new Vue({
 
     this.cardTotalNum = this.words.length;
     this.cardNum = this.cardTotalNum;
+
+    this.wordsList = await this.getWordsList('my_dictionary.txt');
 
     this.sounds['odai'] = new Audio('sound/odai.mp3');
     this.sounds['correct'] = new Audio('sound/correct.mp3');

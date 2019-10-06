@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>カタヌキ</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <script src="//cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js"></script>
+  <script src="gtag.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h1>カタヌキ</h1>
+
+    <div class="word-editor">
+      <div class="word-editor-header">
+        <a href=".">戻る</a>
+      </div>
+
+      <form action="dictionary.php" method="post">
+        <div class="word-editor-contents-scroll-wrapper">
+          <div class="word-editor-contents-scroll" ref="scroll">
+            <div class="word-editor-contents">
+              <input type="text" name="words[]" :id="'word-' + index" :value="word" :ref="'word' + index" v-for="(word, index) in wordsList">
+            </div>
+          </div>
+        </div>
+        <div class="button">
+          <input type="button" @click="addNewWord" value="新しい単語を追加">
+        </div>
+        <div class="button">
+          <input type="submit" value="更新">
+        </div>
+      </form>
+    </div>
+
+    <footer class="footer">
+      <p>Ver. 1.5.1</p>
+      <p>&copy; 2019 Morico</p>
+      <p>Designed by ちきん</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

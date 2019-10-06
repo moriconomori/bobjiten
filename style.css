@@ -191,6 +191,60 @@ button {
   padding: 1.0rem;
 }
 
+.word-editor {
+  width: 75vw;
+  margin: 0 auto;
+}
+
+.word-editor * {
+  margin: 0;
+  padding: 0;
+}
+
+.word-editor-header {
+  margin: 1rem 0;
+}
+
+.word-editor-contents-scroll-wrapper {
+  padding: 0.2rem;
+  background-color: white;
+}
+
+.word-editor-contents-scroll {
+  overflow-y: auto;
+}
+
+.word-editor-contents-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.word-editor-contents-scroll::-webkit-scrollbar-thumb {
+  /* margin: 10px;
+  padding: 10px; */
+  background: #aaa;
+  border-radius: 4px;
+}
+
+.word-editor-contents {
+  height: 50vh;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.word-editor input[type="text"] {
+  border: none;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.word-editor .button {
+  margin-top: 0.5rem;
+}
+
+.center {
+  text-align: center;
+}
+
 
 /* Transition */
 
