@@ -52,10 +52,10 @@ var app = new Vue({
       gtag('event', 'click', { 'event_category': 'button', 'event_label': 'お題' })
     },
     cardEnter: function() {
-      this.playSound('odai');
       this.show = true;
     },
     cardLeave: function() {
+      this.playSound('odai');
       this.show = false;
     },
     correct: function(event) {
