@@ -29,7 +29,7 @@
         :disable="status.loading || status.gameover"
         class="full-width q-py-xs"
         style="border-radius: 100vw;"
-        @click="next"
+        @click="drawCard()"
       >
         <span class="text-h5">{{ status.playing ? '次のお題' : 'START' }}</span>
       </q-btn>
@@ -214,13 +214,13 @@ export default {
       }
     },
 
-    async next() {
+    async drawCard() {
       if (!this.status.playing) {
         this.initGame()
         this.status.playing = true
       }
 
-      const nextWord = this.pickNextWord()
+      const nextWord = this.drawNextWord()
       this.card.show = false
       await this.sleep(150)
 
@@ -255,7 +255,7 @@ export default {
       this.card.show = true
     },
 
-    pickNextWord() {
+    drawNextWord() {
       const count = this.words.remain.length
       if (count < 1) {
         return ''
