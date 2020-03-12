@@ -35,6 +35,11 @@
       </q-btn>
     </div>
 
+    <div class="flex justify-around q-my-lg">
+      <q-btn round color="positive" size="xl" icon="done" />
+      <q-btn round color="negative" size="xl" icon="clear" />
+    </div>
+
     <q-expansion-item icon="settings" label="設定">
       <q-list>
         <q-item-label header>含めるカタカナ語</q-item-label>
