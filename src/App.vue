@@ -23,5 +23,7 @@
 <style scoped>
 .page-container {
   overflow: hidden;
+  max-width: 768px;
+  margin: auto;
 }
 </style>
