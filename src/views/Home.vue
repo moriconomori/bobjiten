@@ -1,22 +1,37 @@
 <template>
   <div>
-    <q-responsive :ratio="16 / 9" class="q-mb-lg">
-      <q-card class="flex flex-center">
-        <q-card-section>
-          <span>{{ card }}</span>
-        </q-card-section>
-      </q-card>
-    </q-responsive>
+    <div class="q-mb-lg card-wrap">
+      <transition
+        enter-active-class="animated slideInRight"
+        leave-active-class="animated slideOutLeft"
+      >
+        <div
+          v-show="cardShow"
+          style="animation-duration: 0.3s"
+          class="card q-px-lg"
+        >
+          <q-card class="flex flex-center">
+            <q-card-section>
+              <span>{{ word }}</span>
+            </q-card-section>
+          </q-card>
+        </div>
+      </transition>
+    </div>
 
-    <q-btn
-      rounded
-      color="primary"
-      size="16px"
-      :disable="loading"
-      class="full-width q-py-xs"
-    >
-      <span>START</span>
-    </q-btn>
+    <div class="q-mx-lg q-my-sm">
+      <q-btn
+        rounded
+        color="primary"
+        size="16px"
+        :disable="loading"
+        class="full-width q-py-xs"
+        style="border-radius: 100vw;"
+        @click="next"
+      >
+        <span>{{ playing ? 'NEXT' : 'START' }}</span>
+      </q-btn>
+    </div>
   </div>
 </template>
 
@@ -27,8 +42,14 @@ export default {
   data: function() {
     return {
       loading: true,
+      playing: false,
       words: {},
-      card: 'Loading...',
+      word: 'Loading...',
+      cardShow: true,
+      settings: {
+        included: { v0: true, v1: true, v2: true },
+        ratio: { normal: 80, gesture: 10, katakoto: 10 },
+      },
     }
   },
 
@@ -44,14 +65,37 @@ export default {
   methods: {
     init() {
       this.loading = false
-      this.card = 'お題 CARD'
+      this.word = 'お題 CARD'
+    },
+
+    async next() {
+      if (!this.playing) {
+        this.playing = true
+      }
+      this.cardShow = false
+      await this.sleep(200)
+      this.cardShow = true
+    },
+
+    sleep(msec) {
+      return new Promise((r) => setTimeout(r, msec))
     },
   },
 }
 </script>
 
 <style scoped>
-.q-btn--rounded {
-  border-radius: 999px;
+.card-wrap {
+  height: 35vw;
+}
+
+.card {
+  height: 100%;
+}
+
+.card .q-card {
+  height: 100%;
+  width: 100%;
+  margin: auto;
 }
 </style>
