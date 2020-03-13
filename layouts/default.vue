@@ -1,9 +1,9 @@
 <template>
   <v-app>
-    <v-app-bar app>
+    <v-app-bar app class="light-blue lighten-5">
       <v-toolbar-title>カタヌキ</v-toolbar-title>
     </v-app-bar>
-    <v-content>
+    <v-content class="light-blue lighten-5">
       <v-container>
         <nuxt />
       </v-container>
