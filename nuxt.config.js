@@ -1,3 +1,6 @@
+import axios from 'axios'
+import fs from 'fs-extra'
+
 export default {
   mode: 'spa',
   /*
@@ -66,5 +69,28 @@ export default {
 
   server: {
     host: '0.0.0.0',
+  },
+
+  hooks: {
+    build: {
+      async before(builder) {
+        const dest = './assets/data/'
+        const data = [
+          {
+            fileName: 'words.json',
+            url:
+              'https://script.google.com/macros/s/AKfycbws3-V2qvM3RY3rLlmtw_D0cmeYHWbf8xUJx_cnQ885x_Cs3cU/exec',
+          },
+        ]
+
+        for (let i = 0; i < data.length; i++) {
+          const filePath = dest + data[i].fileName
+          const json = (await axios.get(data[i].url)).data
+          fs.outputFile(filePath, JSON.stringify(json))
+          // eslint-disable-next-line no-console
+          console.log('[HOOK][before build] Generated ' + filePath)
+        }
+      },
+    },
   },
 }
