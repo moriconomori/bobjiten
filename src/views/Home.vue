@@ -156,6 +156,9 @@
 </template>
 
 <script>
+import '@quasar/extras/animate/slideInRight.css'
+import '@quasar/extras/animate/slideOutLeft.css'
+
 export default {
   name: 'Home',
 
