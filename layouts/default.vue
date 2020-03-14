@@ -1,9 +1,11 @@
 <template>
   <v-app>
-    <v-app-bar app class="light-blue lighten-5">
-      <v-toolbar-title>カタヌキ</v-toolbar-title>
+    <v-app-bar app hide-on-scroll class="light-blue lighten-5">
+      <v-avatar size="40">
+        <img src="~/assets/logo.png" alt="カタヌキ" />
+      </v-avatar>
       <v-spacer />
-      <v-btn to="/settings">設定</v-btn>
+      <v-btn text to="/settings">設定</v-btn>
     </v-app-bar>
 
     <v-content class="light-blue lighten-5">
