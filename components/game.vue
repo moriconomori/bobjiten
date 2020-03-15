@@ -75,8 +75,6 @@ export default {
 
     drawCard() {
       const nextWord = this.getNextWordRand()
-      // this.card.show = false
-      // await this.sleep(250)
 
       if (nextWord === '') {
         this.word.string = 'GAME OVER'
@@ -105,7 +103,6 @@ export default {
       }
 
       this.word.string = nextWord
-      // this.card.show = true
     },
 
     getNextWordRand() {
