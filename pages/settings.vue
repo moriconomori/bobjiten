@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ma-4">
     <div class="d-flex justify-space-between align-center">
       <h2 class="title">含めるカタカナ語</h2>
       <v-btn outlined @click="reset()">リセット</v-btn>
@@ -34,11 +34,11 @@
       color="primary"
       rounded
       x-large
-      class="headline my-8"
+      class="headline mt-8 mb-12"
       nuxt
-      to="/play"
+      to="/"
     >
-      START PLAYING
+      戻る
     </v-btn>
   </div>
 </template>
@@ -56,7 +56,7 @@ export default {
         return this.settings.included.v0
       },
       set(checked) {
-        this.$store.commit('settings/SET_INCLUDED', {
+        this.$store.commit('SET_INCLUDED', {
           version: 'v0',
           checked,
         })
@@ -67,7 +67,7 @@ export default {
         return this.settings.included.v1
       },
       set(checked) {
-        this.$store.commit('settings/SET_INCLUDED', {
+        this.$store.commit('SET_INCLUDED', {
           version: 'v1',
           checked,
         })
@@ -78,7 +78,7 @@ export default {
         return this.settings.included.v2
       },
       set(checked) {
-        this.$store.commit('settings/SET_INCLUDED', {
+        this.$store.commit('SET_INCLUDED', {
           version: 'v2',
           checked,
         })
@@ -89,7 +89,7 @@ export default {
         return this.settings.typeRatio.normal
       },
       set(ratio) {
-        this.$store.commit('settings/SET_TYPE_RATIO', {
+        this.$store.commit('SET_TYPE_RATIO', {
           type: 'normal',
           ratio,
         })
@@ -100,7 +100,7 @@ export default {
         return this.settings.typeRatio.gesture
       },
       set(ratio) {
-        this.$store.commit('settings/SET_TYPE_RATIO', {
+        this.$store.commit('SET_TYPE_RATIO', {
           type: 'gesture',
           ratio,
         })
@@ -111,7 +111,7 @@ export default {
         return this.settings.typeRatio.katakoto
       },
       set(ratio) {
-        this.$store.commit('settings/SET_TYPE_RATIO', {
+        this.$store.commit('SET_TYPE_RATIO', {
           type: 'katakoto',
           ratio,
         })
@@ -121,7 +121,7 @@ export default {
 
   methods: {
     reset() {
-      this.$store.commit('settings/RESET')
+      this.$store.commit('RESET_SETTINGS')
     },
   },
 }

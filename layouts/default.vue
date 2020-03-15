@@ -5,13 +5,14 @@
         <img src="~/assets/logo.png" alt="カタヌキ" />
       </v-avatar>
       <v-spacer />
-      <v-btn text to="/settings">設定</v-btn>
+      <v-btn text to="/settings">
+        <v-icon left>mdi-cog-outline</v-icon>
+        設定
+      </v-btn>
     </v-app-bar>
 
     <v-content class="light-blue lighten-5">
-      <v-container>
-        <nuxt />
-      </v-container>
+      <nuxt />
     </v-content>
 
     <v-footer>
