@@ -92,11 +92,11 @@ export default {
           break
         case 'gesture':
           this.word.type = 'gesture'
-          this.card.bgColor = 'green lighten-3'
+          this.card.bgColor = 'green lighten-4'
           break
         case 'katakoto':
           this.word.type = 'katakoto'
-          this.card.bgColor = 'yellow lighten-3'
+          this.card.bgColor = 'yellow lighten-4'
           break
         default:
           break
