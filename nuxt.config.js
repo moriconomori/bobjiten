@@ -17,6 +17,7 @@ export default {
         content: 'カタカナ言葉をカタカナ抜きで説明しよう！',
       },
     ],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   /*
    ** Customize the progress-bar color

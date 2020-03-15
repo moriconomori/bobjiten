@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <v-app-bar app hide-on-scroll class="light-blue lighten-5">
-      <v-avatar size="40">
-        <img src="~/assets/logo.png" alt="カタヌキ" />
-      </v-avatar>
+      <v-toolbar-title class="d-flex align-center title py-2">
+        <img src="~/assets/logo.png" alt="カタヌキ" class="title__logo" />
+      </v-toolbar-title>
       <v-spacer />
       <v-btn text to="/settings">
         <v-icon left>mdi-cog-outline</v-icon>
@@ -28,3 +28,13 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.title {
+  height: 100%;
+}
+
+.title__logo {
+  height: 100%;
+}
+</style>
