@@ -23,14 +23,29 @@
       >
         次のお題を引く
       </v-btn>
+      <audio ref="soundDraw" src="/sound/draw.mp3"></audio>
     </div>
 
     <div class="d-flex justify-space-around">
-      <v-btn color="success" :disabled="gameover" fab x-large>
+      <v-btn
+        color="success"
+        :disabled="gameover"
+        fab
+        x-large
+        @click="answer('correct')"
+      >
         <v-icon>mdi-check</v-icon>
+        <audio ref="soundCorrect" src="/sound/correct.mp3"></audio>
       </v-btn>
-      <v-btn color="error" :disabled="gameover" fab x-large>
+      <v-btn
+        color="error"
+        :disabled="gameover"
+        fab
+        x-large
+        @click="answer('incorrect')"
+      >
         <v-icon>mdi-close</v-icon>
+        <audio ref="soundIncorrect" src="/sound/incorrect.mp3"></audio>
       </v-btn>
     </div>
   </div>
@@ -56,6 +71,11 @@ export default {
         show: true,
         bgColor: '',
       },
+      sound: {
+        draw: null,
+        correct: null,
+        incorrect: null,
+      },
     }
   },
 
@@ -68,9 +88,35 @@ export default {
     },
   },
 
+  created() {
+    this.sound.draw = this.$refs.soundDraw
+    this.sound.correct = this.$refs.soundCorrect
+    this.sound.incorrect = this.$refs.soundIncorrect
+  },
+
   methods: {
+    answer(answer) {
+      let sound
+
+      switch (answer) {
+        case 'correct':
+          sound = this.$refs.soundCorrect
+          break
+        case 'incorrect':
+          sound = this.$refs.soundIncorrect
+          break
+        default:
+          break
+      }
+      sound.currentTime = 0
+      sound.play()
+    },
+
     next() {
       this.card.show = false
+      const sound = this.$refs.soundDraw
+      sound.currentTime = 0
+      sound.play()
     },
 
     drawCard() {
