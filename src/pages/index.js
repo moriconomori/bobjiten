@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 
 export default function Index() {
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" disableGutters>
       <Box>
         <Typography variant="h4" component="h1">
           カタヌキ
