@@ -16,12 +16,14 @@ export default function Index() {
 
       <Box mb={8}>
         <Typography align="center">
-          カタカナ言葉をカタカナ抜きで説明しよう！
+          カタカナ言葉を
+          <br />
+          カタカナ抜きで説明しよう！
         </Typography>
       </Box>
 
-      <Box my={2} px={8}>
-        <Box mb={4}>
+      <Box my={2} display="flex" flexDirection="column" alignItems="center">
+        <Box mb={4} width="50%">
           <Link href="/settings">
             <Button
               variant="contained"
@@ -35,7 +37,7 @@ export default function Index() {
           </Link>
         </Box>
 
-        <Box mb={2}>
+        <Box width="50%">
           <Link href="/play">
             <Button
               variant="contained"
