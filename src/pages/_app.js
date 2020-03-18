@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary">
+    <Typography variant="body2" color="textSecondary" align="center">
       &copy; 2019 Morico
     </Typography>
   );
@@ -28,10 +28,6 @@ const useStyles = makeStyles(theme => ({
   footer: {
     padding: theme.spacing(1, 0),
     marginTop: 'auto',
-    backgroundColor:
-      theme.palette.type === 'light'
-        ? theme.palette.grey[200]
-        : theme.palette.grey[800],
   },
 }));
 
