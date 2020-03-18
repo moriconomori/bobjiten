@@ -1,13 +1,14 @@
 import React from 'react';
 import App from 'next/app';
 import Head from 'next/head';
+import PropTypes from 'prop-types';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../theme';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import TheAppBar from '../components/TheAppBar';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 
 function Copyright() {
@@ -39,12 +40,10 @@ const Layout = ({ children }) => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Container maxWidth="sm" disableGutters>
-          <Toolbar>カタヌキ</Toolbar>
-        </Container>
-      </AppBar>
-      <main>{children}</main>
+      <TheAppBar />
+      <main>
+        <Box mt={2}>{children}</Box>
+      </main>
       <footer className={classes.footer}>
         <Container maxWidth="sm">
           <Copyright />
@@ -52,6 +51,10 @@ const Layout = ({ children }) => {
       </footer>
     </div>
   );
+};
+
+Layout.propTypes = {
+  children: PropTypes.element.isRequired,
 };
 
 export default class MyApp extends App {
