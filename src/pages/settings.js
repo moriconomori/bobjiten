@@ -271,7 +271,7 @@ const Settings = ({ settings, setSettings }) => {
 
 Settings.propTypes = {
   settings: PropTypes.object,
-  setSettings: PropTypes.function,
+  setSettings: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
