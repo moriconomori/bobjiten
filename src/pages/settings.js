@@ -14,8 +14,25 @@ import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { settingsAction } from '../store/settings/action';
+import Button from '@material-ui/core/Button';
+import Link from 'next/link';
 
-export default function Settings() {
+const Settings = ({ settings, setSettings }) => {
+  const handleIncluded = version => () => {
+    const newValue = { [version]: !settings.included[version] };
+    const newIncluded = { included: { ...settings.included, ...newValue } };
+    const newSettings = Object.assign(settings, newIncluded);
+    setSettings(newSettings);
+  };
+
+  const handleSound = () => {
+    const newSettings = Object.assign(settings, { sound: !settings.sound });
+    setSettings(newSettings);
+  };
+
   return (
     <Container maxWidth="sm" disableGutters>
       <Container>
@@ -24,84 +41,83 @@ export default function Settings() {
         </Box>
       </Container>
       <Divider />
-      <Container>
-        <IncludedList />
+      <Container disableGutters>
+        <List>
+          <ListSubheader>含めるカタカナ語</ListSubheader>
+          <ListItem button onClick={handleIncluded('v0')}>
+            <ListItemText id="1">オリジナル</ListItemText>
+            <ListItemSecondaryAction>
+              <Checkbox
+                onChange={handleIncluded('v0')}
+                checked={settings.included.v0}
+                disableRipple
+                color="primary"
+              />
+            </ListItemSecondaryAction>
+          </ListItem>
+
+          <ListItem button onClick={handleIncluded('v1')}>
+            <ListItemText id="2">その 1</ListItemText>
+            <ListItemSecondaryAction>
+              <Checkbox
+                onChange={handleIncluded('v1')}
+                checked={settings.included.v1}
+                disableRipple
+                color="primary"
+              />
+            </ListItemSecondaryAction>
+          </ListItem>
+
+          <ListItem button onClick={handleIncluded('v2')}>
+            <ListItemText id="3">その 2</ListItemText>
+            <ListItemSecondaryAction>
+              <Checkbox
+                onChange={handleIncluded('v2')}
+                checked={settings.included.v2}
+                disableRipple
+                color="primary"
+              />
+            </ListItemSecondaryAction>
+          </ListItem>
+        </List>
       </Container>
       <Divider />
       <Container>
         <TypeRatio />
       </Container>
       <Divider />
-      <Container>
-        <Sound />
+      <Container disableGutters>
+        <List>
+          <ListSubheader>サウンド</ListSubheader>
+          <ListItem button onClick={handleSound}>
+            <ListItemText>効果音を出す</ListItemText>
+            <ListItemSecondaryAction>
+              <Switch
+                checked={settings.sound}
+                onChange={handleSound}
+                color="primary"
+              />
+            </ListItemSecondaryAction>
+          </ListItem>
+        </List>
       </Container>
       <Divider />
+      <Box my={4} px={2}>
+        <Link href="/">
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            fullWidth
+            style={{ borderRadius: 50 }}
+          >
+            戻る
+          </Button>
+        </Link>
+      </Box>
     </Container>
   );
-}
-
-function IncludedList() {
-  const [checked, setChecked] = React.useState([0, 1, 2]);
-
-  const handleToggle = value => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
-  };
-
-  return (
-    <React.Fragment>
-      <List>
-        <ListSubheader disableGutters>含めるカタカナ語</ListSubheader>
-        <ListItem button onClick={handleToggle(0)} disableGutters>
-          <ListItemText id="1">オリジナル</ListItemText>
-          <ListItemSecondaryAction>
-            <Checkbox
-              edge="end"
-              onChange={handleToggle(0)}
-              checked={checked.indexOf(0) !== -1}
-              disableRipple
-              color="primary"
-            />
-          </ListItemSecondaryAction>
-        </ListItem>
-
-        <ListItem button onClick={handleToggle(1)} disableGutters>
-          <ListItemText id="2">その 1</ListItemText>
-          <ListItemSecondaryAction>
-            <Checkbox
-              edge="end"
-              onChange={handleToggle(1)}
-              checked={checked.indexOf(1) !== -1}
-              disableRipple
-              color="primary"
-            />
-          </ListItemSecondaryAction>
-        </ListItem>
-
-        <ListItem button onClick={handleToggle(2)} disableGutters>
-          <ListItemText id="3">その 2</ListItemText>
-          <ListItemSecondaryAction>
-            <Checkbox
-              edge="end"
-              onChange={handleToggle(2)}
-              checked={checked.indexOf(2) !== -1}
-              disableRipple
-              color="primary"
-            />
-          </ListItemSecondaryAction>
-        </ListItem>
-      </List>
-    </React.Fragment>
-  );
-}
+};
 
 const typeRatioStyles = makeStyles({
   typeLabel: {
@@ -243,29 +259,14 @@ function TypeRatio() {
   );
 }
 
-function Sound() {
-  const [enabled, setEnabled] = React.useState(true);
+const mapStateToProps = state => ({
+  settings: state.settings,
+});
 
-  const handleChange = event => {
-    setEnabled(event.target.checked);
+const mapDispatchToProps = dispatch => {
+  return {
+    setSettings: bindActionCreators(settingsAction, dispatch),
   };
+};
 
-  return (
-    <React.Fragment>
-      <List>
-        <ListSubheader disableGutters>サウンド</ListSubheader>
-        <ListItem disableGutters>
-          <ListItemText>効果音を出す</ListItemText>
-          <ListItemSecondaryAction>
-            <Switch
-              checked={enabled}
-              edge="end"
-              onChange={handleChange}
-              color="primary"
-            />
-          </ListItemSecondaryAction>
-        </ListItem>
-      </List>
-    </React.Fragment>
-  );
-}
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);
