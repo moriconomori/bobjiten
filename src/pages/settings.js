@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
@@ -266,6 +267,11 @@ const Settings = ({ settings, setSettings }) => {
       </Box>
     </Container>
   );
+};
+
+Settings.propTypes = {
+  settings: PropTypes.object,
+  setSettings: PropTypes.function,
 };
 
 const mapStateToProps = state => ({
