@@ -10,6 +10,9 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
+import { Provider } from 'react-redux';
+import withRedux from 'next-redux-wrapper';
+import { initStore } from '../store/store';
 
 function Copyright() {
   return (
@@ -53,7 +56,7 @@ Layout.propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-export default class MyApp extends App {
+class MyApp extends App {
   componentDidMount() {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
@@ -63,10 +66,10 @@ export default class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, store } = this.props;
 
     return (
-      <React.Fragment>
+      <Provider store={store}>
         <Head>
           <title>カタヌキ</title>
           <meta
@@ -81,7 +84,9 @@ export default class MyApp extends App {
             <Component {...pageProps} />
           </Layout>
         </ThemeProvider>
-      </React.Fragment>
+      </Provider>
     );
   }
 }
+
+export default withRedux(initStore)(MyApp);
