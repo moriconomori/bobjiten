@@ -2,6 +2,7 @@ import { settingsActionTypes } from './action';
 
 const initialState = {
   included: { v0: true, v1: true, v2: true },
+  typeRatio: { normal: 80, gesture: 10, katakoto: 10 },
   sound: true,
 };
 

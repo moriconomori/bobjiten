@@ -21,6 +21,23 @@ import Button from '@material-ui/core/Button';
 import Link from 'next/link';
 
 const Settings = ({ settings, setSettings }) => {
+  const typeRatioStyles = makeStyles({
+    typeLabel: {
+      minWidth: '6em',
+      paddingBottom: '4px',
+    },
+
+    input: {
+      maxWidth: '2em',
+      marginBottom: '4px',
+      '& > input': {
+        textAlign: 'right',
+      },
+    },
+  });
+
+  const typeRatioClasses = typeRatioStyles();
+
   const handleIncluded = version => () => {
     const newValue = { [version]: !settings.included[version] };
     const newIncluded = { included: { ...settings.included, ...newValue } };
@@ -33,6 +50,31 @@ const Settings = ({ settings, setSettings }) => {
     setSettings(newSettings);
   };
 
+  const handleTypeRatioSlider = type => (event, newValue) => {
+    const newTypeRatio = Object.assign(settings.typeRatio, {
+      [type]: newValue,
+    });
+    const newSettings = Object.assign(settings, { typeRatio: newTypeRatio });
+    setSettings(newSettings);
+  };
+
+  const handleTypeRatioInput = event => {
+    const type = event.target.name;
+    let newValue = event.target.value === '' ? '' : Number(event.target.value);
+
+    if (newValue < 0) {
+      newValue = 0;
+    } else if (newValue > 100) {
+      newValue = 100;
+    }
+
+    const newTypeRatio = Object.assign(settings.typeRatio, {
+      [type]: newValue,
+    });
+    const newSettings = Object.assign(settings, { typeRatio: newTypeRatio });
+    setSettings(newSettings);
+  };
+
   return (
     <Container maxWidth="sm" disableGutters>
       <Container>
@@ -40,7 +82,9 @@ const Settings = ({ settings, setSettings }) => {
           <Typography variant="subtitle1">設定</Typography>
         </Box>
       </Container>
+
       <Divider />
+
       <Container disableGutters>
         <List>
           <ListSubheader>含めるカタカナ語</ListSubheader>
@@ -81,11 +125,114 @@ const Settings = ({ settings, setSettings }) => {
           </ListItem>
         </List>
       </Container>
+
       <Divider />
-      <Container>
-        <TypeRatio />
+
+      <Container disableGutters>
+        <Box px={2}>
+          <Box pr={1}>
+            <List>
+              <ListSubheader disableGutters>出現比率</ListSubheader>
+
+              <Grid container spacing={2} alignItems="center">
+                <Grid item>
+                  <Box className={typeRatioClasses.typeLabel}>普通</Box>
+                </Grid>
+                <Grid item xs>
+                  <Slider
+                    value={
+                      typeof settings.typeRatio.normal === 'number'
+                        ? settings.typeRatio.normal
+                        : 0
+                    }
+                    onChange={handleTypeRatioSlider('normal')}
+                    aria-labelledby="input-slider"
+                  />
+                </Grid>
+                <Grid item>
+                  <Input
+                    name="normal"
+                    value={settings.typeRatio.normal}
+                    onChange={handleTypeRatioInput}
+                    inputProps={{
+                      min: 0,
+                      max: 100,
+                      type: 'number',
+                      'aria-labelledby': 'input-slider',
+                    }}
+                    className={typeRatioClasses.input}
+                  />
+                </Grid>
+              </Grid>
+
+              <Grid container spacing={2} alignItems="center">
+                <Grid item>
+                  <Box className={typeRatioClasses.typeLabel}>ジェスチャー</Box>
+                </Grid>
+                <Grid item xs>
+                  <Slider
+                    value={
+                      typeof settings.typeRatio.gesture === 'number'
+                        ? settings.typeRatio.gesture
+                        : 0
+                    }
+                    onChange={handleTypeRatioSlider('gesture')}
+                    aria-labelledby="input-slider"
+                  />
+                </Grid>
+                <Grid item>
+                  <Input
+                    name="gesture"
+                    value={settings.typeRatio.gesture}
+                    onChange={handleTypeRatioInput}
+                    inputProps={{
+                      min: 0,
+                      max: 100,
+                      type: 'number',
+                      'aria-labelledby': 'input-slider',
+                    }}
+                    className={typeRatioClasses.input}
+                  />
+                </Grid>
+              </Grid>
+
+              <Grid container spacing={2} alignItems="center">
+                <Grid item>
+                  <Box className={typeRatioClasses.typeLabel}>カタコト</Box>
+                </Grid>
+                <Grid item xs>
+                  <Slider
+                    value={
+                      typeof settings.typeRatio.katakoto === 'number'
+                        ? settings.typeRatio.katakoto
+                        : 0
+                    }
+                    onChange={handleTypeRatioSlider('katakoto')}
+                    aria-labelledby="input-slider"
+                  />
+                </Grid>
+                <Grid item>
+                  <Input
+                    name="katakoto"
+                    value={settings.typeRatio.katakoto}
+                    onChange={handleTypeRatioInput}
+                    inputProps={{
+                      min: 0,
+                      max: 100,
+                      type: 'number',
+                      'aria-labelledby': 'input-slider',
+                    }}
+                    className={typeRatioClasses.input}
+                  />
+                </Grid>
+              </Grid>
+            </List>
+          </Box>
+        </Box>
       </Container>
+
       <Divider />
+
       <Container disableGutters>
         <List>
           <ListSubheader>サウンド</ListSubheader>
@@ -101,7 +248,9 @@ const Settings = ({ settings, setSettings }) => {
           </ListItem>
         </List>
       </Container>
+
       <Divider />
+
       <Box my={4} px={2}>
         <Link href="/">
           <Button
@@ -118,146 +267,6 @@ const Settings = ({ settings, setSettings }) => {
     </Container>
   );
 };
-
-const typeRatioStyles = makeStyles({
-  typeLabel: {
-    minWidth: '6em',
-    paddingBottom: '4px',
-  },
-
-  input: {
-    maxWidth: '2em',
-    marginBottom: '4px',
-    '& > input': {
-      textAlign: 'right',
-    },
-  },
-});
-
-function TypeRatio() {
-  const style = typeRatioStyles();
-
-  const [value, setValue] = React.useState({
-    normal: 80,
-    gesture: 10,
-    katakoto: 10,
-  });
-
-  const handleSliderChange = type => (event, newValue) => {
-    setValue({ ...value, [type]: newValue });
-  };
-
-  const handleInputChange = event => {
-    const type = event.target.name;
-    const newValue =
-      event.target.value === '' ? '' : Number(event.target.value);
-
-    setValue({ ...value, [type]: newValue });
-  };
-
-  const handleBlur = type => {
-    if (value[type] < 0) {
-      setValue({ ...value, [type]: 0 });
-    } else if (value[type] > 100) {
-      setValue({ ...value, [type]: 100 });
-    }
-  };
-
-  return (
-    <React.Fragment>
-      <List>
-        <ListSubheader disableGutters>出現比率</ListSubheader>
-
-        <Grid container spacing={2} alignItems="center">
-          <Grid item>
-            <Box className={style.typeLabel}>普通</Box>
-          </Grid>
-          <Grid item xs>
-            <Slider
-              value={typeof value.normal === 'number' ? value.normal : 0}
-              onChange={handleSliderChange('normal')}
-              aria-labelledby="input-slider"
-            />
-          </Grid>
-          <Grid item>
-            <Input
-              name="normal"
-              value={value.normal}
-              margin="dense"
-              onChange={handleInputChange}
-              onBlur={handleBlur('normal')}
-              inputProps={{
-                min: 0,
-                max: 100,
-                type: 'number',
-                'aria-labelledby': 'input-slider',
-              }}
-              className={style.input}
-            />
-          </Grid>
-        </Grid>
-
-        <Grid container spacing={2} alignItems="center">
-          <Grid item>
-            <Box className={style.typeLabel}>ジェスチャー</Box>
-          </Grid>
-          <Grid item xs>
-            <Slider
-              value={typeof value.gesture === 'number' ? value.gesture : 0}
-              onChange={handleSliderChange('gesture')}
-              aria-labelledby="input-slider"
-            />
-          </Grid>
-          <Grid item>
-            <Input
-              name="gesture"
-              value={value.gesture}
-              margin="dense"
-              onChange={handleInputChange}
-              onBlur={handleBlur('gesture')}
-              inputProps={{
-                min: 0,
-                max: 100,
-                type: 'number',
-                'aria-labelledby': 'input-slider',
-              }}
-              className={style.input}
-            />
-          </Grid>
-        </Grid>
-
-        <Grid container spacing={2} alignItems="center">
-          <Grid item>
-            <Box className={style.typeLabel}>カタコト</Box>
-          </Grid>
-          <Grid item xs>
-            <Slider
-              value={typeof value.katakoto === 'number' ? value.katakoto : 0}
-              onChange={handleSliderChange('katakoto')}
-              aria-labelledby="input-slider"
-            />
-          </Grid>
-          <Grid item>
-            <Input
-              name="katakoto"
-              value={value.katakoto}
-              margin="dense"
-              onChange={handleInputChange}
-              onBlur={handleBlur('katakoto')}
-              inputProps={{
-                min: 0,
-                max: 100,
-                type: 'number',
-                'aria-labelledby': 'input-slider',
-              }}
-              className={style.input}
-            />
-          </Grid>
-        </Grid>
-      </List>
-    </React.Fragment>
-  );
-}
 
 const mapStateToProps = state => ({
   settings: state.settings,
