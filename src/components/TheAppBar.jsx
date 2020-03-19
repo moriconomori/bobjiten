@@ -10,7 +10,9 @@ export default function TheAppBar() {
       <CssBaseline />
       <AppBar position="sticky">
         <Container maxWidth="sm" disableGutters>
-          <Toolbar>カタヌキ</Toolbar>
+          <Toolbar>
+            <img src="/icon/logo.png" width="24" alt="カタヌキ" srcSet="" />
+          </Toolbar>
         </Container>
       </AppBar>
     </React.Fragment>
