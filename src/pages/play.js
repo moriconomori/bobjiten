@@ -37,11 +37,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Play() {
+const Play = ({ words }) => {
   const classes = useStyles();
 
   return (
     <Container maxWidth="sm" disableGutters>
+      {words}
       <Box mt={4} mb={4} px={4}>
         <Card>
           <Box py={8}>
@@ -78,7 +79,7 @@ function Play() {
       </Grid>
     </Container>
   );
-}
+};
 
 export async function getStaticProps() {
   const res = await fetch(
