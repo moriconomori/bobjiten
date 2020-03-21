@@ -42,6 +42,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Play = ({ wordsAll, settings }) => {
+  const getWordRand = () => {
+    const length = wordsRemaining.length;
+    const index = Math.floor(Math.random() * length);
+    const word = wordsRemaining[index];
+    setWordsRemaining(
+      wordsRemaining.filter(word => word !== wordsRemaining[index])
+    );
+    return word;
+  };
+
   const initWords = () => {
     let words = [];
     for (let version in settings.included) {
@@ -54,20 +64,17 @@ const Play = ({ wordsAll, settings }) => {
 
   const [wordsRemaining, setWordsRemaining] = useState(initWords);
   const [word, setWord] = useState('お題 CARD');
-  const [current, setCurrent] = useState(0);
 
   const classes = useStyles();
 
-  const handleClick = () => {
-    setCurrent(current => {
-      if (wordsRemaining[current] === undefined) {
-        setWord('GAME OVER');
-        return wordsRemaining.length;
-      }
+  const drawNextWord = () => {
+    if (wordsRemaining.length <= 0) {
+      setWord('GAME OVER');
+      return;
+    }
 
-      setWord(wordsRemaining[current]);
-      return current + 1;
-    });
+    const word = getWordRand();
+    setWord(word);
   };
 
   return (
@@ -76,7 +83,7 @@ const Play = ({ wordsAll, settings }) => {
         <Card>
           <Box py={8}>
             <Typography variant="h5" align="center">
-              <span>{word}</span>
+              {word}
             </Typography>
           </Box>
         </Card>
@@ -89,7 +96,7 @@ const Play = ({ wordsAll, settings }) => {
           size="large"
           fullWidth
           style={{ borderRadius: 50 }}
-          onClick={handleClick}
+          onClick={drawNextWord}
         >
           <Typography variant="h5">次のお題</Typography>
         </Button>
@@ -125,6 +132,7 @@ export async function getStaticProps() {
 }
 
 Play.propTypes = {
+  wordsAll: PropTypes.object,
   settings: PropTypes.object,
 };
 
