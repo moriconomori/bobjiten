@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -10,6 +11,9 @@ import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles';
 import fetch from 'node-fetch';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { settingsAction } from '../store/settings/action';
 
 const useStyles = makeStyles(theme => ({
   answerCorrect: {
@@ -37,17 +41,42 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Play = ({ words }) => {
+const Play = ({ wordsAll, settings }) => {
+  const initWords = () => {
+    let words = [];
+    for (let version in settings.included) {
+      if (settings.included[version]) {
+        words = [...words, ...wordsAll[version]];
+      }
+    }
+    return words;
+  };
+
+  const [wordsRemaining, setWordsRemaining] = useState(initWords);
+  const [word, setWord] = useState('お題 CARD');
+  const [current, setCurrent] = useState(0);
+
   const classes = useStyles();
+
+  const handleClick = () => {
+    setCurrent(current => {
+      if (wordsRemaining[current] === undefined) {
+        setWord('GAME OVER');
+        return wordsRemaining.length;
+      }
+
+      setWord(wordsRemaining[current]);
+      return current + 1;
+    });
+  };
 
   return (
     <Container maxWidth="sm" disableGutters>
-      {words}
       <Box mt={4} mb={4} px={4}>
         <Card>
           <Box py={8}>
-            <Typography variant="h4" align="center">
-              お題 CARD
+            <Typography variant="h5" align="center">
+              <span>{word}</span>
             </Typography>
           </Box>
         </Card>
@@ -60,6 +89,7 @@ const Play = ({ words }) => {
           size="large"
           fullWidth
           style={{ borderRadius: 50 }}
+          onClick={handleClick}
         >
           <Typography variant="h5">次のお題</Typography>
         </Button>
@@ -85,18 +115,27 @@ export async function getStaticProps() {
   const res = await fetch(
     'https://script.google.com/macros/s/AKfycbws3-V2qvM3RY3rLlmtw_D0cmeYHWbf8xUJx_cnQ885x_Cs3cU/exec'
   );
-  const data = await res.json();
-  let words = [];
-
-  for (let key in data) {
-    words = [...words, ...data[key]];
-  }
+  const wordsAll = await res.json();
 
   return {
     props: {
-      words,
+      wordsAll,
     },
   };
 }
 
-export default Play;
+Play.propTypes = {
+  settings: PropTypes.object,
+};
+
+const mapStateToProps = state => ({
+  settings: state.settings,
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setSettings: bindActionCreators(settingsAction, dispatch),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Play);
