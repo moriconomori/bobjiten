@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import fetch from 'node-fetch';
 import { connect } from 'react-redux';
 import { yellow, lightGreen } from '@material-ui/core/colors';
+import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles(theme => ({
   answer: {
@@ -99,6 +100,10 @@ const Play = ({ wordsAll, settings }) => {
 
   const [wordsRemaining, setWordsRemaining] = useState(initWords);
   const [word, setWord] = useState({ string: 'お題 CARD', type: 'normal' });
+  const [slideTransition, setSlideTransition] = useState({
+    show: true,
+    direction: 'left',
+  });
   const [sound, setSound] = useState();
   const [typeRatioSum] = useState(
     parseInt(
@@ -138,7 +143,10 @@ const Play = ({ wordsAll, settings }) => {
 
   const drawNextWord = () => {
     playSound('draw');
+    setSlideTransition({ show: false, direction: 'right' });
+  };
 
+  const getNextWord = () => {
     if (wordsRemaining.length <= 0) {
       setWord({ string: 'GAME OVER', type: 'normal' });
       setIsGameover(true);
@@ -146,7 +154,6 @@ const Play = ({ wordsAll, settings }) => {
     }
 
     const word = { string: getWordRand(), type: getWordTypeRand() };
-
     setWord(word);
   };
 
@@ -165,10 +172,25 @@ const Play = ({ wordsAll, settings }) => {
     }
   };
 
+  const onExitedSlideTransition = () => {
+    getNextWord();
+    setSlideTransition({ show: true, direction: 'left' });
+  };
+
   return (
     <Container maxWidth="sm" disableGutters>
       <Box mt={4} mb={4} px={4}>
-        <WordCard word={word} />
+        <Slide
+          direction={slideTransition.direction}
+          in={slideTransition.show}
+          appear={false}
+          timeout={150}
+          onExited={onExitedSlideTransition}
+        >
+          <div>
+            <WordCard word={word} />
+          </div>
+        </Slide>
       </Box>
 
       <Box mb={4} px={4}>
