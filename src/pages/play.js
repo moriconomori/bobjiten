@@ -14,27 +14,25 @@ import fetch from 'node-fetch';
 import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
-  answerCorrect: {
+  answer: {
     width: '80px',
     height: '80px',
-    backgroundColor: theme.palette.success.main,
-    '&:hover': {
-      backgroundColor: theme.palette.success.main,
-    },
     '& svg': {
       fontSize: '56px',
     },
   },
 
-  answerIncorrect: {
-    width: '80px',
-    height: '80px',
+  correct: {
+    backgroundColor: theme.palette.success.main,
+    '&:hover': {
+      backgroundColor: theme.palette.success.main,
+    },
+  },
+
+  incorrect: {
     backgroundColor: theme.palette.error.main,
     '&:hover': {
       backgroundColor: theme.palette.error.main,
-    },
-    '& svg': {
-      fontSize: '56px',
     },
   },
 }));
@@ -131,7 +129,7 @@ const Play = ({ wordsAll, settings }) => {
       <Grid container justify="space-around">
         <Grid item>
           <Fab
-            className={classes.answerCorrect}
+            className={`${classes.answer} ${classes.correct}`}
             onClick={() => answer('correct')}
           >
             <CheckIcon />
@@ -139,7 +137,7 @@ const Play = ({ wordsAll, settings }) => {
         </Grid>
         <Grid item>
           <Fab
-            className={classes.answerIncorrect}
+            className={`${classes.answer} ${classes.incorrect}`}
             onClick={() => answer('incorrect')}
           >
             <CloseIcon />
