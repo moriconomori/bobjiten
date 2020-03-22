@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const WordCard = ({ word }) => {
-  const useStyles = makeStyles(theme => ({
+  const useStyles = makeStyles({
     card: {
       backgroundColor:
         word.type === 'normal'
@@ -48,7 +48,7 @@ const WordCard = ({ word }) => {
           ? lightGreen[200]
           : yellow[200],
     },
-  }));
+  });
 
   const classes = useStyles();
 
