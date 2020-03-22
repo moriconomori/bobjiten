@@ -38,9 +38,7 @@ const Layout = ({ children }) => {
   return (
     <div className={classes.root}>
       <TheAppBar />
-      <main>
-        <Box mt={2}>{children}</Box>
-      </main>
+      <main>{children}</main>
       <footer className={classes.footer}>
         <Copyright />
       </footer>

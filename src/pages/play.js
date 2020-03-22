@@ -178,7 +178,7 @@ const Play = ({ wordsAll, settings }) => {
   };
 
   return (
-    <Box overflow="hidden" mt={-2}>
+    <Box overflow="hidden">
       <Container maxWidth="sm" disableGutters>
         <Box mt={4} mb={4} px={4}>
           <Slide
