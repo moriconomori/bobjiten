@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
@@ -64,10 +64,38 @@ const Play = ({ wordsAll, settings }) => {
 
   const [wordsRemaining, setWordsRemaining] = useState(initWords);
   const [word, setWord] = useState('お題 CARD');
+  const [sound, setSound] = useState();
+
+  useEffect(() => {
+    const draw = new Audio('/sound/draw.mp3');
+    const correct = new Audio('/sound/correct.mp3');
+    const incorrect = new Audio('/sound/incorrect.mp3');
+
+    setSound({
+      draw,
+      correct,
+      incorrect,
+    });
+  }, []);
+
+  const playSound = type => {
+    if (!settings.sound) {
+      return;
+    }
+
+    sound[type].currentTime = 0;
+    sound[type].play();
+  };
+
+  const answer = type => {
+    playSound(type);
+  };
 
   const classes = useStyles();
 
   const drawNextWord = () => {
+    playSound('draw');
+
     if (wordsRemaining.length <= 0) {
       setWord('GAME OVER');
       return;
@@ -104,12 +132,18 @@ const Play = ({ wordsAll, settings }) => {
 
       <Grid container justify="space-around">
         <Grid item>
-          <Fab className={classes.answerCorrect}>
+          <Fab
+            className={classes.answerCorrect}
+            onClick={() => answer('correct')}
+          >
             <CheckIcon />
           </Fab>
         </Grid>
         <Grid item>
-          <Fab className={classes.answerIncorrect}>
+          <Fab
+            className={classes.answerIncorrect}
+            onClick={() => answer('incorrect')}
+          >
             <CloseIcon />
           </Fab>
         </Grid>
