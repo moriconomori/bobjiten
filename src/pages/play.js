@@ -178,56 +178,60 @@ const Play = ({ wordsAll, settings }) => {
   };
 
   return (
-    <Container maxWidth="sm" disableGutters>
-      <Box mt={4} mb={4} px={4}>
-        <Slide
-          direction={slideTransition.direction}
-          in={slideTransition.show}
-          appear={false}
-          timeout={150}
-          onExited={onExitedSlideTransition}
-        >
-          <div>
-            <WordCard word={word} />
-          </div>
-        </Slide>
-      </Box>
-
-      <Box mb={4} px={4}>
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          fullWidth
-          disabled={isGameover}
-          style={{ borderRadius: 50 }}
-          onClick={drawNextWord}
-        >
-          <Typography variant="h5">次のお題</Typography>
-        </Button>
-      </Box>
-
-      <Grid container justify="space-around">
-        <Grid item>
-          <Fab
-            disabled={isGameover}
-            className={`${classes.answer} ${classes.correct}`}
-            onClick={() => answer('correct')}
+    <Box overflow="hidden" mt={-2}>
+      <Container maxWidth="sm" disableGutters>
+        <Box mt={4} mb={4} px={4}>
+          <Slide
+            direction={slideTransition.direction}
+            in={slideTransition.show}
+            appear={false}
+            timeout={150}
+            onExited={onExitedSlideTransition}
           >
-            <CheckIcon />
-          </Fab>
-        </Grid>
-        <Grid item>
-          <Fab
+            <div>
+              <WordCard word={word} />
+            </div>
+          </Slide>
+        </Box>
+
+        <Box mb={4} px={4}>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            fullWidth
             disabled={isGameover}
-            className={`${classes.answer} ${classes.incorrect}`}
-            onClick={() => answer('incorrect')}
+            style={{ borderRadius: 50 }}
+            onClick={drawNextWord}
           >
-            <CloseIcon />
-          </Fab>
-        </Grid>
-      </Grid>
-    </Container>
+            <Typography variant="h5">次のお題</Typography>
+          </Button>
+        </Box>
+
+        <Box mb={4}>
+          <Grid container justify="space-around">
+            <Grid item>
+              <Fab
+                disabled={isGameover}
+                className={`${classes.answer} ${classes.correct}`}
+                onClick={() => answer('correct')}
+              >
+                <CheckIcon />
+              </Fab>
+            </Grid>
+            <Grid item>
+              <Fab
+                disabled={isGameover}
+                className={`${classes.answer} ${classes.incorrect}`}
+                onClick={() => answer('incorrect')}
+              >
+                <CloseIcon />
+              </Fab>
+            </Grid>
+          </Grid>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 
