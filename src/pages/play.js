@@ -12,6 +12,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles';
 import fetch from 'node-fetch';
 import { connect } from 'react-redux';
+import { yellow, lightGreen } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(theme => ({
   answer: {
@@ -37,6 +38,44 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const WordCard = ({ word }) => {
+  const useStyles = makeStyles(theme => ({
+    card: {
+      backgroundColor:
+        word.type === 'normal'
+          ? ''
+          : word.type === 'gesture'
+          ? lightGreen[200]
+          : yellow[200],
+    },
+  }));
+
+  const classes = useStyles();
+
+  const [wordTypeText] = useState({
+    normal: '',
+    gesture: 'ジェスチャー',
+    katakoto: 'カタコト',
+  });
+
+  return (
+    <Card className={classes.card}>
+      <Box position="relative" py={8}>
+        <Typography variant="h5" align="center">
+          {word.string}
+        </Typography>
+        <Box position="absolute" top={0} right={0} p={1}>
+          {wordTypeText[word.type]}
+        </Box>
+      </Box>
+    </Card>
+  );
+};
+
+WordCard.propTypes = {
+  word: PropTypes.object.isRequired,
+};
+
 const Play = ({ wordsAll, settings }) => {
   const getWordRand = () => {
     const length = wordsRemaining.length;
@@ -59,8 +98,15 @@ const Play = ({ wordsAll, settings }) => {
   };
 
   const [wordsRemaining, setWordsRemaining] = useState(initWords);
-  const [word, setWord] = useState('お題 CARD');
+  const [word, setWord] = useState({ string: 'お題 CARD', type: 'normal' });
   const [sound, setSound] = useState();
+  const [typeRatioSum] = useState(
+    parseInt(
+      settings.typeRatio.normal +
+        settings.typeRatio.gesture +
+        settings.typeRatio.katakoto
+    )
+  );
 
   useEffect(() => {
     const draw = new Audio('/sound/draw.mp3');
@@ -97,20 +143,30 @@ const Play = ({ wordsAll, settings }) => {
       return;
     }
 
-    const word = getWordRand();
+    const word = { string: getWordRand(), type: getWordTypeRand() };
+
     setWord(word);
+  };
+
+  const getWordTypeRand = () => {
+    const rnd = Math.floor(Math.random() * typeRatioSum) + 1;
+
+    if (rnd <= settings.typeRatio.normal) {
+      return 'normal';
+    } else if (
+      rnd > settings.typeRatio.normal &&
+      rnd <= settings.typeRatio.normal + settings.typeRatio.gesture
+    ) {
+      return 'gesture';
+    } else {
+      return 'katakoto';
+    }
   };
 
   return (
     <Container maxWidth="sm" disableGutters>
       <Box mt={4} mb={4} px={4}>
-        <Card>
-          <Box py={8}>
-            <Typography variant="h5" align="center">
-              {word}
-            </Typography>
-          </Box>
-        </Card>
+        <WordCard word={word} />
       </Box>
 
       <Box mb={4} px={4}>
