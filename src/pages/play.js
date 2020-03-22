@@ -139,7 +139,7 @@ const Play = ({ wordsAll, settings }) => {
     playSound('draw');
 
     if (wordsRemaining.length <= 0) {
-      setWord('GAME OVER');
+      setWord({ string: 'GAME OVER', type: 'normal' });
       return;
     }
 
