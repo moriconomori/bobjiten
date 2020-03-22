@@ -20,6 +20,7 @@ import { bindActionCreators } from 'redux';
 import { settingsAction } from '../store/settings/action';
 import Button from '@material-ui/core/Button';
 import Link from 'next/link';
+import BackIcon from '@material-ui/icons/ArrowBack';
 
 const Settings = ({ settings, setSettings }) => {
   const typeRatioStyles = makeStyles({
@@ -259,6 +260,7 @@ const Settings = ({ settings, setSettings }) => {
             color="primary"
             size="large"
             fullWidth
+            startIcon={<BackIcon />}
             style={{ borderRadius: 50 }}
           >
             戻る

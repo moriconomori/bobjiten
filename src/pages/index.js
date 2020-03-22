@@ -4,6 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Link from 'next/link';
+import PlayIcon from '@material-ui/icons/PlayArrow';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 const Index = () => {
   return (
@@ -28,6 +30,7 @@ const Index = () => {
               color="primary"
               size="large"
               fullWidth
+              startIcon={<SettingsIcon />}
               style={{ borderRadius: 50 }}
             >
               設定
@@ -42,6 +45,7 @@ const Index = () => {
               color="primary"
               size="large"
               fullWidth
+              startIcon={<PlayIcon />}
               style={{ borderRadius: 50 }}
             >
               始める
