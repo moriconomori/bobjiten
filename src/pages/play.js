@@ -107,6 +107,7 @@ const Play = ({ wordsAll, settings }) => {
         settings.typeRatio.katakoto
     )
   );
+  const [isGameover, setIsGameover] = useState(false);
 
   useEffect(() => {
     const draw = new Audio('/sound/draw.mp3');
@@ -140,6 +141,7 @@ const Play = ({ wordsAll, settings }) => {
 
     if (wordsRemaining.length <= 0) {
       setWord({ string: 'GAME OVER', type: 'normal' });
+      setIsGameover(true);
       return;
     }
 
@@ -175,6 +177,7 @@ const Play = ({ wordsAll, settings }) => {
           color="primary"
           size="large"
           fullWidth
+          disabled={isGameover}
           style={{ borderRadius: 50 }}
           onClick={drawNextWord}
         >
@@ -185,6 +188,7 @@ const Play = ({ wordsAll, settings }) => {
       <Grid container justify="space-around">
         <Grid item>
           <Fab
+            disabled={isGameover}
             className={`${classes.answer} ${classes.correct}`}
             onClick={() => answer('correct')}
           >
@@ -193,6 +197,7 @@ const Play = ({ wordsAll, settings }) => {
         </Grid>
         <Grid item>
           <Fab
+            disabled={isGameover}
             className={`${classes.answer} ${classes.incorrect}`}
             onClick={() => answer('incorrect')}
           >
