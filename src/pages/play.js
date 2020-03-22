@@ -12,8 +12,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles';
 import fetch from 'node-fetch';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { settingsAction } from '../store/settings/action';
 
 const useStyles = makeStyles(theme => ({
   answerCorrect: {
@@ -174,10 +172,4 @@ const mapStateToProps = state => ({
   settings: state.settings,
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    setSettings: bindActionCreators(settingsAction, dispatch),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Play);
+export default connect(mapStateToProps, null)(Play);
