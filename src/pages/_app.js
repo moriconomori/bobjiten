@@ -6,7 +6,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../theme';
 import TheAppBar from '../components/TheAppBar';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
@@ -42,6 +41,11 @@ const Layout = ({ children }) => {
       <footer className={classes.footer}>
         <Copyright />
       </footer>
+      <style jsx global>{`
+        .MuiButton-label {
+          line-height: 1em;
+        }
+      `}</style>
     </div>
   );
 };
@@ -70,6 +74,12 @@ const MyApp = props => {
       </ThemeProvider>
     </Provider>
   );
+};
+
+MyApp.propTypes = {
+  Component: PropTypes.any,
+  pageProps: PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default withRedux(initStore)(MyApp);
