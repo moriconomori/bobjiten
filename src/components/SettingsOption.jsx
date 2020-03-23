@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -18,9 +17,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { settingsAction } from '../store/settings/action';
-import Button from '@material-ui/core/Button';
-import Link from 'next/link';
-import BackIcon from '@material-ui/icons/ArrowBack';
 
 const SettingsOption = ({ settings, setSettings }) => {
   const typeRatioStyles = makeStyles({
@@ -79,14 +75,6 @@ const SettingsOption = ({ settings, setSettings }) => {
 
   return (
     <Container maxWidth="sm" disableGutters>
-      <Container>
-        <Box my={2}>
-          <Typography variant="subtitle1">設定</Typography>
-        </Box>
-      </Container>
-
-      <Divider />
-
       <Container disableGutters>
         <List>
           <ListSubheader>含めるカタカナ語</ListSubheader>
@@ -252,21 +240,6 @@ const SettingsOption = ({ settings, setSettings }) => {
       </Container>
 
       <Divider />
-
-      <Box my={4} px={2}>
-        <Link href="/">
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            fullWidth
-            startIcon={<BackIcon />}
-            style={{ borderRadius: 50 }}
-          >
-            戻る
-          </Button>
-        </Link>
-      </Box>
     </Container>
   );
 };
